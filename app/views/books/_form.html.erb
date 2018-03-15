@@ -1,0 +1,8 @@
+
+<%= simple_form_for @book do |f| %>
+    <%= f.input :title, label: "Book title"%>
+    <%= f.input :description %>
+    <%= f.input :author %>
+    <%= f.button :submit %>
+    <!-- createのviewテンプレートは作成していない　-->
+<% end %>
