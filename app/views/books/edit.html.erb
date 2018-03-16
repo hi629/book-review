@@ -1,2 +1,12 @@
 <h1>Edit </h1>
-<%= render 'form' %>
+<!-- paperclipで複数の画像をアップロードする際に:html => { :multipart => true}が必要
+    DBのカテゴリ名前を反映させるために f.select〜〜としている
+ -->
+<%= simple_form_for @book, :html => { :multipart => true}  do |f| %>
+    <%= f.select :category_id, @categories %>
+    <%= f.input :title, label: "Book title"%>
+    <%= f.input :description %>
+    <%= f.input :author %>
+    <%= f.button :submit %>
+    <!-- createのviewテンプレートは作成していない　-->
+<% end %>

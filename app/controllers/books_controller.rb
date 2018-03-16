@@ -2,8 +2,12 @@ class BooksController < ApplicationController
     before_action :find_book, only:[:show, :edit, :update, :destroy]
 
     def index
-        # 新しい順に上から並べる
-        @books = Book.all.order('created_at DESC')
+        if params[:category].blank?
+            @books = Book.all.order('created_at DESC') # 新しい順に上から並べるだけ
+        else
+            @category_id = Category.find_by(name: params[:category]).id
+            @books = Book.where(:category_id => @category_id).order("created_at DESC")
+        end
     end
 
     def show
@@ -13,10 +17,14 @@ class BooksController < ApplicationController
 
     def new
         @book = current_user.books.build 
+        # ドロップダウンメニューで使うselect_tagを作成するとき、カテゴリ名とidが必要
+        @categories = Category.all.map{ |c| [c.name, c.id] }
     end
 
     def create
         @book = current_user.books.build(book_params)
+        # params[:category_id]はsubmitボタンを押したときに返ってくる値
+        @book.category_id = params[:category_id]
         if @book.save
             redirect_to root_path
         else
@@ -24,10 +32,12 @@ class BooksController < ApplicationController
         end
     end
 
-    def edit
+    def edit # 更新内容を表示するとき
+        @categories = Category.all.map{ |c| [c.name, c.id] }
     end
 
-    def update
+    def update # 更新内容を反映させるとき
+        @book_category_id = params[:category_id]
         # ユーザーがコンテンツを編集するときにはbook_params updateされたらshowページへ
         if @book.update(book_params)
             redirect_to book_path(@book)
@@ -44,8 +54,8 @@ class BooksController < ApplicationController
     private
 
     def book_params
-        # ユーザーが入力したりする箇所
-        params.require(:book).permit(:title, :description, :author)
+        # ユーザーが入力したりする箇所。カテゴリIDもユーザーによって更新される
+        params.require(:book).permit(:title, :description, :author, :category_id)
     end
 
     def find_book
