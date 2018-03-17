@@ -1,5 +1,8 @@
-<p><%= review.rating %></p>
+<div class="review-rating" data-score="<%= review.rating %>" ></div>
 <p><%= review.comment %></p>
-
-<%= link_to "edit", edit_book_review_path(review.book, review) %>
-<%= link_to "Delete", book_review_path(review.book, review), method: :delete, data:{confirm: "Aru you sure?"}%>
+<% if user_signed_in? %>
+  <% if review.user_id == current_user.id %>
+    <%= link_to "edit", edit_book_review_path(review.book, review) %>
+    <%= link_to "Delete", book_review_path(review.book, review), method: :delete, data:{confirm: "Aru you sure?"}%>
+  <% end %>
+<% end %>

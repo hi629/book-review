@@ -19,11 +19,21 @@
         </div>
     </div>
 </div>
-        <%= link_to 'Back', root_path %>
-        <!-- ログインしていると、エディット、削除ボタンを表示する。ただし、表示するのは自分が作成したもののみ-->
-        <% if user_signed_in? %>
-            <% if @book.user_id == current_user.id %>
-                <%= link_to 'edit', edit_book_path(@book) %>
-                <%= link_to 'destroy', book_path(@book), method: :delete, data:{ confirm: "Are you sure?" } %>
-            <% end %>
-        <% end %>
+<%= link_to 'Back', root_path %>
+<!-- ログインしていると、エディット、削除ボタンを表示する。ただし、表示するのは自分が作成したもののみ-->
+<% if user_signed_in? %>
+    <% if @book.user_id == current_user.id %>
+        <%= link_to 'edit', edit_book_path(@book) %>
+        <%= link_to 'destroy', book_path(@book), method: :delete, data:{ confirm: "Are you sure?" } %>
+    <% end %>
+<% end %>
+
+<script>
+    $('.review-rating').raty({
+        readOnly:true,
+        score:function(){
+            return $(this).attr('data-score');
+        },
+        path: '/assets/'
+    });
+</script>
