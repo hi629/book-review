@@ -5,7 +5,7 @@
 		<h1>Edit Review</h1>
 
 		<%= simple_form_for([@book, @review]) do |f| %>
-			<div id="rating-form">
+			<div id="rating-edit-form">
 				<label>Rating</label>
 			</div>
 			<%= f.input :comment %>
@@ -17,7 +17,7 @@
 </div>
 
 <script>
-	$('#rating-form').raty({
+	$('#rating-edit-form').raty({
 		path: '/assets/',
 		scoreName: 'review[rating]'
 	});
