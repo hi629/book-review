@@ -1,6 +1,8 @@
 
-<%= simple_form_for @book do |f| %>
+<%= simple_form_for @book, :html => { :multipart => true} do |f| %>
     <%= select_tag(:category_id, options_for_select(@categories), :prompt=>"Select ad Category" )%>
+    <!-- :book_imageはpaperclipで設定したやつ　-->
+    <%= f.file_field :book_image%>
     <%= f.input :title, label: "Book title"%>
     <%= f.input :description %>
     <%= f.input :author %>

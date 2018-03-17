@@ -1,13 +1,26 @@
-<h2><%= @book.title %></h2>
-<h3><%= @book.author %></h3>
-<h4>Category：<%= @book.category.name %></h4>
-<p><%= @book.description %></p>
-
-<%= link_to 'Back', root_path %>
-<!-- ログインしていると、エディット、削除ボタンを表示する。ただし、表示するのは自分が作成したもののみ-->
-<% if user_signed_in? %>
-    <% if @book.user_id == current_user.id %>
-        <%= link_to 'edit', edit_book_path(@book) %>
-        <%= link_to 'destroy', book_path(@book), method: :delete, data:{ confirm: "Are you sure?" } %>
-    <% end %>
-<% end %>
+<div class="row">
+    <div class="col-md-4">
+        <%= image_tag @book.book_image.url(:book_show), class:"book-show" %>
+    </div>
+    <div class="col-md-8">
+    
+        <h2><%= @book.title %></h2>
+        <h3>著者：<%= @book.author %></h3>
+        <h4>Category：<%= @book.category.name %></h4>
+        <p><%= @book.description %></p>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <!--  reviews/rating がここに来る -->
+        </div>
+    </div>
+        <%= link_to 'Back', root_path %>
+        <!-- ログインしていると、エディット、削除ボタンを表示する。ただし、表示するのは自分が作成したもののみ-->
+        <% if user_signed_in? %>
+            <% if @book.user_id == current_user.id %>
+                <%= link_to 'edit', edit_book_path(@book) %>
+                <%= link_to 'destroy', book_path(@book), method: :delete, data:{ confirm: "Are you sure?" } %>
+            <% end %>
+        <% end %>
+    
+</div>

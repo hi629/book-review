@@ -55,7 +55,7 @@ class BooksController < ApplicationController
 
     def book_params
         # ユーザーが入力したりする箇所。カテゴリIDもユーザーによって更新される
-        params.require(:book).permit(:title, :description, :author, :category_id)
+        params.require(:book).permit(:title, :description, :author, :category_id, :book_image)
     end
 
     def find_book

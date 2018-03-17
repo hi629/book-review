@@ -61,3 +61,5 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'jquery-rails'
 
 gem 'devise', '~> 4.4', '>= 4.4.2'
+
+gem 'paperclip', '~> 6.0'
